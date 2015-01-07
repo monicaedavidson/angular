@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8">
+  <link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
+  <link href="css/layout.css" type="text/css" rel="stylesheet" />
+<title>Your To Do List</title>
+</head>
+
+<body>
+  <div data-ng-app="notesApp">
+  	<div data-ng-controller="notesCtrl">
+      <h1>Your Personal To Do List</h1>
+      <h2>New Note:</h2>
+      <section class="createNote">
+        <input type="text" placeholder="Type new note here" class="textbox" data-ng-model="newNote.noteBody"></br>
+        <button data-ng-click="createNote()">Create New Note</button>
+      </section>
+      <section class="createNote_add">
+        <ul data-ng-repeat="note in notes">
+      		<div data-ng-hide="note.editing">
+        		{{note.noteBody}} 
+        		<a href data-ng-click="note.editing = true">Edit</a>
+        		<a href data-ng-click="note.confirmDelete = true" data-ng-hide="note.confirmDelete">Delete</a>
+        		<div data-ng-show="note.confirmDelete">
+        			<a href data-ng-click="note.confirmDelete = false">Cancel</a>
+        			<a href data-ng-click="deleteNote(note)">Confirm</a>
+        		</div>
+      		</div>
+      		<div data-ng-show="note.editing">
+      			<input type="text" data-ng-model="note.noteBody">
+      			<button data-ng-click="note.editing = false">Save Note</button>
+      		</div>
+        </ul>
+      </section>
+  	</div>
+  </div>
+<script src="lib/angular.js"></script>
+<script src="lib/angular-route.js"></script>
+<script src="js/notes.js"></script>
+<script src="js/controllers/notes_ctrl.js"></script>
+</body>
+</html>
